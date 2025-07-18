@@ -5,152 +5,166 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Label Generator</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f4;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  <!-- Fonts and Normalize -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css" />
+    .form-container {
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-  <!-- Custom CSS -->
- <link rel="stylesheet" href="styles/styles.css" />
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
 
+    .header img {
+      max-height: 50px;
+      object-fit: contain;
+    }
+
+    .header .label-title {
+      flex: 1;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
   <div class="form-container">
     <header class="header">
-  <div class="left-header">
-    <img src="svg/kel_logo_embedded.svg" alt="KEL Logo" class="kel-logo" />
-    <div class="title_text">
-      <h1 class="title">Label Generator</h1>
-    </div>
-  </div>
+      <img src="svg/kel.svg" alt="KEL Logo" />
+      <div class="label-title">Label Generator</div>
+      <img id="company-logo" src="" alt="Company Logo" />
+    </header>
 
-  <div class="product-select">
-    <label for="companySelect">Product of:</label>
-    <select id="companySelect" name="companySelect">
-      <option value="TACO">TACO</option>
-      <option value="Modine">Modine</option>
-      <option value="SpiraxSarco">SpiraxSarco</option>
-      <option value="DriSteem">DriSteem</option>
-      <option value="AQC">AQC</option>
-      <option value="Daikin">Daikin</option>
-      <option value="Senior Flexonics">Senior Flexonics</option>
-      <option value="IEC">IEC</option>
-      <option value="Nova Flex">Nova Flex</option>
-      <option value="Oxygen 8">Oxygen 8</option>
-      <option value="Pool Pac">Pool Pac</option>
-      <option value="Clima Cool">Clima Cool</option>
-      <option value="Climate Craft">Climate Craft</option>
-      <option value="Mafna">Mafna</option>
-      <option value="PB">PB</option>
-      <option value="HVAC Solution">HVAC Solution</option>
-      <option value="Ecogreen">Ecogreen Heat Pumps & Heat Recovery</option>
-      <option value="RGF">RGF</option>
-    </select>
-  </div>
-</header>
-
-
-    <!-- Form Fields -->
     <div class="field">
       <label for="companySelect">Product of:</label>
-      <select id="companySelect" name="companySelect">
-        <option value="TACO">TACO</option>
-        <option value="Modine">Modine</option>
-        <option value="SpiraxSarco">SpiraxSarco</option>
-        <option value="DriSteem">DriSteem</option>
+      <select id="companySelect">
+        <option value="">Select company</option>
         <option value="AQC">AQC</option>
         <option value="Daikin">Daikin</option>
-        <option value="Senior Flexonics">Senior Flexonics</option>
         <option value="IEC">IEC</option>
         <option value="Nova Flex">Nova Flex</option>
         <option value="Oxygen 8">Oxygen 8</option>
         <option value="Pool Pac">Pool Pac</option>
-        <option value="Clima Cool">Clima Cool</option>
-        <option value="Climate Craft">Climate Craft</option>
-        <option value="Mafna">Mafna</option>
-        <option value="PB">PB</option>
-        <option value="HVAC Solution">HVAC Solution</option>
-        <option value="Ecogreen">Ecogreen Heat Pumps & Heat Recovery</option>
-        <option value="RGF">RGF</option>
+        <option value="Senior Flexonics">Senior Flexonics</option>
       </select>
     </div>
 
     <div class="field">
-        <label for="project-name">Project Name:</label>
-        <input type="text" id="project-name" placeholder="Project Name ABC" />
-    </div>
-    <div class="field">
-        <label for="company">C/o:</label><input type="text" id="company" placeholder="Sold to" />
-    </div>
-    <div class="field">
-        <label for="customer-po">Customer PO:</label><input type="text" id="customer-po" placeholder="PO#0123456789" />
-    </div>
-    <div class="field">
-        <label for="project-number">Project#:</label><input type="text" id="project-number" placeholder="Project# 1234567890-MECH-1" />
-    </div>
-    <div class="field">
-        <label for="kel-po">KEL PO:</label>
-        <input type="text" id="kel-po" placeholder="KEL PO# 01-1234" />
-    </div>
-    <div class="field">
-        <label for="contactperson">Contact Person:</label>
-        <input type="text" id="contactperson" placeholder="Contact Person:" />
-    </div>
-    <div class="field">
-        <label for="totalpieces">Total Pieces:</label>
-        <input type="text" id="totalpieces" placeholder="1 - 9" />
-    </div>
-    <div class="field">
-        <label for="total-weight">Total Weight:</label>
-        <input type="text" id="total-weight" placeholder="Total Weight Lbs" />
-    </div>
-    <div class="field">
-        <label for="dimensions">Dimensions:</label>
-        <input type="text" id="dimensions" placeholder="36x48x25" />
+      <label for="project-name">Project Name:</label>
+      <input type="text" id="project-name" />
     </div>
 
     <div class="field">
-  <label for="location">Location:</label>
-  <select id="location" name="location">
-    <option value="">Select location</option>
-    <option value="Warehouse">Warehouse</option>
-    <option value="Quonset">Quonset</option>
-    <option value="Outside">Outside</option>
-  </select>
-</div>
-
-
-    <div class="field">
-        <label for="delivery-time-date">Delivery Date/Time:</label>
-        <input type="text" id="delivery-time-date" name="delivery-time-date" readonly />
-
+      <label for="company">C/o:</label>
+      <input type="text" id="company" />
     </div>
 
-    <!-- Button -->
     <div class="field">
-      <label></label>
-      <button type="button">Generate Label</button>
+      <label for="customer-po">Customer PO:</label>
+      <input type="text" id="customer-po" />
     </div>
+
+    <div class="field">
+      <label for="project-number">Project#:</label>
+      <input type="text" id="project-number" />
+    </div>
+
+    <div class="field">
+      <label for="kel-po">KEL PO#:</label>
+      <input type="text" id="kel-po" />
+    </div>
+
+    <div class="field">
+      <label for="contact-person">Contact Person:</label>
+      <input type="text" id="contact-person" />
+    </div>
+
+    <div class="field">
+      <label for="totalpieces">Total Pieces:</label>
+      <input type="text" id="totalpieces" />
+    </div>
+
+    <div class="field">
+      <label for="total-weight">Total Weight:</label>
+      <input type="text" id="total-weight" />
+    </div>
+
+    <div class="field">
+      <label for="dimensions">Dimensions:</label>
+      <input type="text" id="dimensions" />
+    </div>
+
+    <div class="field">
+      <label for="location">Location:</label>
+      <select id="location">
+        <option value="">Select location</option>
+        <option value="Warehouse">Warehouse</option>
+        <option value="Quonset">Quonset</option>
+        <option value="Outside">Outside</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="delivery-time-date">Delivery Date/Time:</label>
+      <input type="text" id="delivery-time-date" readonly />
+    </div>
+
+    <button>Generate Label</button>
   </div>
- <script>
-  window.addEventListener("DOMContentLoaded", function () {
-    const now = new Date();
 
-    const pad = (n) => n.toString().padStart(2, '0');
-
-    const hours = pad(now.getHours());
-    const minutes = pad(now.getMinutes());
-    const year = now.getFullYear();
-    const month = pad(now.getMonth() + 1);
-    const day = pad(now.getDate());
-
-    const formatted = `${hours}${minutes}${year}${month}${day}`;
-    document.getElementById("delivery-time-date").value = formatted;
-  });
-</script>
-
-
+  <script src="scripts/main.js"></script>
 </body>
 </html>
