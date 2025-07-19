@@ -35,12 +35,17 @@ body {
 }
 
 .label-title {
-  text-align: center;
-  flex: 1;
-  font-size: 24px;
-  font-weight: 700;
-  color: #333;
+  font-size: 48px;
+  font-weight: bold;
 }
+
+.colorful-text {
+  background: linear-gradient(to right, rgb(6, 182, 6), rgb(8, 8, 225), red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
 
 .company-logo {
   max-width: 150px;
