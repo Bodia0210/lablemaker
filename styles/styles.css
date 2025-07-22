@@ -143,7 +143,7 @@ input.short {
     width: 45%;
 }
 
-@media (max-widrh: 600px) {
+@media (max-widh: 600px) {
   input.short {
     width: 100%;
   }
@@ -161,4 +161,10 @@ input.short {
 #dimensionsContainer .field {
   flex: 1 1 calc(20% - 10px); /* 100% / 5 = 20% */
   min-width: 150px; /* щоб не злипались */
+}
+
+@media (max-width: 600px) {
+  #dimensionsContainer .field {
+    flex: 1 1 100%;
+  }
 }
