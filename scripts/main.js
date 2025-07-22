@@ -33,3 +33,33 @@ window.addEventListener("DOMContentLoaded", function () {
   const formatted = `${pad(now.getHours())}${pad(now.getMinutes())}${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
   document.getElementById("delivery-time-date").value = formatted;
 });
+
+const totalPiecesInput = document.getElementById('total-pieces');
+const dimensionsContainer = document.getElementById('dimensionsContainer');
+
+totalPiecesInput.addEventListener('input', () => {
+  const count = parseInt(totalPiecesInput.value);
+
+  // Очистити попередні поля
+  dimensionsContainer.innerHTML = '';
+
+  if (!isNaN(count) && count > 0) {
+    for (let i = 1; i <= count; i++) {
+      const label = document.createElement('label');
+      label.textContent = `Dimensions ${i}:`;
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.name = `dimension${i}`;
+      input.placeholder = `Enter dimensions for piece ${i}`;
+      input.className = 'short'; // або будь-який інший клас, який ти використовуєш
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'field'; // це щоб стиль зберігся
+
+      wrapper.appendChild(label);
+      wrapper.appendChild(input);
+      dimensionsContainer.appendChild(wrapper);
+    }
+  }
+});

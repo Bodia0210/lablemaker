@@ -148,3 +148,17 @@ input.short {
     width: 100%;
   }
 }
+
+/* ставить рядки dimentions в ряд по 5 штук */
+
+#dimensionsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* відступ між полями */
+  margin-top: 10px;
+}
+
+#dimensionsContainer .field {
+  flex: 1 1 calc(20% - 10px); /* 100% / 5 = 20% */
+  min-width: 150px; /* щоб не злипались */
+}
