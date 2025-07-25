@@ -9,7 +9,10 @@ const logoMap = {
   "Nova Flex": "svg/novaflex.svg",
   "Oxygen 8": "svg/oxygen8.svg",
   "Pool Pac": "svg/poolpak.svg",
-  "Senior Flexonics": "svg/seniorflexonics.svg"
+  "Senior Flexonics": "svg/seniorflexonics.svg",
+  "ClimaCool": "svg/climacool.svg",
+  "ClimateCraft": "svg/climacraft.svg"
+
 };
 
 
