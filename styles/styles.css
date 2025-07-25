@@ -143,6 +143,10 @@ input.short {
     width: 45%;
 }
 
+select {
+  width: 15%;
+}
+
 @media (max-widh: 600px) {
   input.short {
     width: 100%;

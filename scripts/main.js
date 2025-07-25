@@ -51,7 +51,7 @@ totalPiecesInput.addEventListener('input', () => {
       const input = document.createElement('input');
       input.type = 'text';
       input.name = `dimension${i}`;
-      input.placeholder = `Enter dimensions for piece ${i}`;
+      input.placeholder = `Width Length Height ${i}`;
       input.className = 'short'; // або будь-який інший клас, який ти використовуєш
 
       const wrapper = document.createElement('div');
