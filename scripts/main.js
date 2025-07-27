@@ -11,7 +11,8 @@ const logoMap = {
   "Pool Pac": "svg/poolpak.svg",
   "Senior Flexonics": "svg/seniorflexonics.svg",
   "ClimaCool": "svg/climacool.svg",
-  "ClimateCraft": "svg/climacraft.svg"
+  "ClimateCraft": "svg/climacraft.svg",
+  "Modine": "svg/modine.svg"
 
 };
 

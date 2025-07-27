@@ -12,14 +12,7 @@ html, body {
   font-family: "Roboto", sans-serif;
 }
 
-.form-container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-}
+
 
 body {
   background-color: #f4f4f4;
@@ -31,12 +24,13 @@ body {
 
 /* Контейнер форми */
 .form-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: auto;
   background-color: white;
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 100%;
 }
 
 /* Шапка */
@@ -121,33 +115,82 @@ select {
 }
 
 /* Кнопка */
+
+
 button,
 input[type="submit"] {
-  background-color: #1010d2;
-  color: white;
-  padding: 12px 20px;
+  width: 80px;
+  height: 80px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: #e0d5d9;
+  color: rgb(10, 10, 11);
+  font-size: 14px;
+  font-weight: bold;
   border: none;
-  border-radius: 4px;
-  font-size: 15px;
   cursor: pointer;
-  width: 15%;
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+
 
 button:hover,
 input[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #b30012;
 }
+
+.button-group {
+  display: flex;
+  gap: 10px; /* Відступ між кнопками */
+  margin-top: 20px;
+}
+
+button.generate {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  box-shadow: 0 4px 12px rgba(0, 114, 255, 0.4);
+  color: white;
+  font-size: 14px;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button.generate:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 114, 255, 0.5);
+}
+
+
+button.print {
+  background-color: #333;
+  color: #fff;
+  width: 80px;
+  height: 80px;
+  border-radius: 20%;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s;
+}
+
+button.print:hover {
+  background-color: #555;
+}
+
 
 input.short {
     width: 45%;
 }
 
 select {
-  width: 15%;
+  width: 23%;
 }
 
-@media (max-widh: 600px) {
+@media (max-width: 600px) {
   input.short {
     width: 100%;
   }
@@ -170,5 +213,11 @@ select {
 @media (max-width: 600px) {
   #dimensionsContainer .field {
     flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .field {
+    width: 100%;
   }
 }
