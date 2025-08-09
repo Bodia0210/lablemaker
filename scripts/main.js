@@ -5,13 +5,21 @@ const logoMap = {
   "DriSteem": "svg/dristeem.svg",
   "AQC": "svg/aqc.svg",
   "Daikin": "svg/daikin.svg",
+  "driSteem": "svg/dristeem.svg",
+  "Ecogreen": "svg/ecogreen.svg",
+  "HVAC Solution": "svg/hvac.svg",
   "IEC": "svg/iec.svg",
+  "Mafna": "svg/mafna.svg",
   "Nova Flex": "svg/novaflex.svg",
   "Oxygen 8": "svg/oxygen8.svg",
+  "PB": "svg/pb.svg",
   "Pool Pac": "svg/poolpak.svg",
+  "RGF": "svg/rgf.svg",
   "Senior Flexonics": "svg/seniorflexonics.svg",
-  "ClimaCool": "svg/climacool.svg",
   "ClimateCraft": "svg/climacraft.svg",
+  "ClimaCool": "svg/climacool.svg",
+  "SpiraxSarco": "svg/spiraxsarco.svg",
+  "TACO": "svg/taco.svg",
   "Modine": "svg/modine.svg"
 
 };
