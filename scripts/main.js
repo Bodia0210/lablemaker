@@ -1,11 +1,11 @@
+// КАРТА ЛОГОТИПІВ (ключі = value у <select>)
 const logoMap = {
   "TACO": "svg/taco.svg",
   "Modine": "svg/modine.svg",
   "SpiraxSarco": "svg/spiraxsarco.svg",
-  "DriSteem": "svg/dristeem.svg",
+  "driSteem": "svg/dristeem.svg",
   "AQC": "svg/aqc.svg",
   "Daikin": "svg/daikin.svg",
-  "driSteem": "svg/dristeem.svg",
   "Ecogreen": "svg/ecogreen.svg",
   "HVAC Solution": "svg/hvac.svg",
   "IEC": "svg/iec.svg",
@@ -17,61 +17,53 @@ const logoMap = {
   "RGF": "svg/rgf.svg",
   "Senior Flexonics": "svg/seniorflexonics.svg",
   "ClimateCraft": "svg/climacraft.svg",
-  "ClimaCool": "svg/climacool.svg",
-  "SpiraxSarco": "svg/spiraxsarco.svg",
-  "TACO": "svg/taco.svg",
-  "Modine": "svg/modine.svg"
-
+  "ClimaCool": "svg/climacool.svg"
 };
 
-
-
-window.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", () => {
+  // логотип постачальника
   const companySelect = document.getElementById("companySelect");
   const logoImg = document.getElementById("company-logo");
 
   const updateLogo = () => {
-    const selected = companySelect.value;
-    logoImg.src = logoMap[selected] || "";
-    logoImg.alt = selected + " Logo";
+    const key = companySelect?.value || "";
+    logoImg.src = logoMap[key] || "";
+    logoImg.alt = key ? `${key} Logo` : "Company Logo";
   };
+  companySelect?.addEventListener("change", updateLogo);
+  updateLogo();
 
-  companySelect.addEventListener("change", updateLogo);
-  updateLogo(); // Показати одразу при завантаженні
-
-  // Встановити дату й час
+  // дата/час (формат як приклад, підженеш під свій)
   const now = new Date();
-  const pad = (n) => n.toString().padStart(2, '0');
-  const formatted = `${pad(now.getHours())}${pad(now.getMinutes())}${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
-  document.getElementById("delivery-time-date").value = formatted;
-});
+  const pad = n => n.toString().padStart(2, "0");
+  const formatted = `${pad(now.getHours())}${pad(now.getMinutes())} ${pad(now.getMonth()+1)}/${pad(now.getDate())}/${now.getFullYear()}`;
+  const dt = document.getElementById("delivery-time-date");
+  if (dt) dt.value = formatted;
 
-const totalPiecesInput = document.getElementById('total-pieces');
-const dimensionsContainer = document.getElementById('dimensionsContainer');
+  // автогенерація полів Dimensions
+  const totalPiecesInput = document.getElementById("total-pieces");
+  const dimensionsContainer = document.getElementById("dimensionsContainer");
 
-totalPiecesInput.addEventListener('input', () => {
-  const count = parseInt(totalPiecesInput.value);
-
-  // Очистити попередні поля
-  dimensionsContainer.innerHTML = '';
-
-  if (!isNaN(count) && count > 0) {
-    for (let i = 1; i <= count; i++) {
-      const label = document.createElement('label');
-      label.textContent = `Dimensions ${i}:`;
-
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.name = `dimension${i}`;
-      input.placeholder = `Width Length Height ${i}`;
-      input.className = 'short'; // або будь-який інший клас, який ти використовуєш
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'field'; // це щоб стиль зберігся
-
-      wrapper.appendChild(label);
-      wrapper.appendChild(input);
-      dimensionsContainer.appendChild(wrapper);
+  totalPiecesInput?.addEventListener("input", () => {
+    const count = parseInt(totalPiecesInput.value, 10);
+    dimensionsContainer.innerHTML = "";
+    if (!isNaN(count) && count > 0) {
+      for (let i = 1; i <= count; i++) {
+        const wrap = document.createElement("div");
+        wrap.className = "field";
+        const label = document.createElement("label");
+        label.textContent = `Dimensions ${i}:`;
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = `dimension${i}`;
+        input.placeholder = `WxLxH ${i}`;
+        input.className = "short";
+        wrap.append(label, input);
+        dimensionsContainer.appendChild(wrap);
+      }
     }
-  }
+  });
+
+  // ДРУК
+  document.getElementById("printBtn")?.addEventListener("click", () => window.print());
 });

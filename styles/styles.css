@@ -228,3 +228,33 @@ object-fit: contain;
     width: 100%;
   }
 }
+
+/* Print */
+/* ...твої існуючі стилі... */
+
+/* ДРУК */
+@media print {
+  /* не друкуємо службові елементи */
+  .no-print { display: none !important; }
+
+  /* показуємо тільки лейбл */
+  body * { visibility: hidden !important; }
+  #printArea, #printArea * { visibility: visible !important; }
+  #printArea { position: absolute !important; top: 0; left: 0; width: 100%; }
+
+  /* поля виглядають як текст */
+  input, select, textarea {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+  select::-ms-expand { display: none !important; }
+
+  /* лейбли форм, якщо не потрібні в друці */
+  .field > label { display: none !important; }
+}
+

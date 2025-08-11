@@ -6,19 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Label Generator</title>
   <link rel="stylesheet" href="styles/styles.css" />
-  <style>
-   </style>
 </head>
 <body>
   <div class="form-container">
-    <header class="header">
-      <img src="svg/kel.svg" alt="KEL Logo" />
-      <div class="label-title colorful-text">Label Generator</div>
 
-      <img id="company-logo" src="" alt="Company Logo" />
-    </header>
-
-    <div class="field">
+    <!-- Керування, не друкуємо -->
+    <div class="field no-print">
       <label for="companySelect">Product of:</label>
       <select id="companySelect">
         <option value="">Select company</option>
@@ -39,86 +32,91 @@
         <option value="RGF">RGF</option>
         <option value="Senior Flexonics">Senior Flexonics</option>
         <option value="SpiraxSarco">SpiraxSarco</option>
-        <option value="TACO">TACO</option>  
+        <option value="TACO">TACO</option>
       </select>
     </div>
 
-    <div class="field">
-      <!-- <label for="project-name"></label> -->
-      <input type="text" id="project-name" placeholder="Project Name:" />
-    </div>
-
-    <div class="field">
-      <!-- <label for="company"></label> -->
-      <input type="text" id="company" placeholder="Sold To:" />
-    </div>
-                      
-                        <!-- Коронті рядки -->
-
-    <div class="field">
-      <!-- <label for="customer-po"></label> -->
-      <input class="short" type="text" id="customer-po" placeholder="Customer PO:" />
-    </div>
-
-    <div class="field">
-      <!-- <label for="project-number"></label> -->
-      <input class="short" type="text" id="project-number" placeholder="Project ID:" />
-    </div>
-
-    <div class="field">
-      <!-- <label for="kel-po"></label> -->
-      <input class="short" type="text" id="kel-po" placeholder="KEL PO#:" />
-    </div>
-
-    <div class="field">
-      <!-- <label for="contact-person"></label> -->
-      <input class="short" type="text" id="contact-person" placeholder="Leader:" />
-    </div>
-<div class="measuremens">
-  <div class="field">
-      <!-- <label for="contact-person"></label> -->
-      <input class="short" type="text" id="total-pieces" placeholder="Total Pieces:" />
-      <div id="dimensionsContainer"></div>
-
-<select id="package-type">
- 
-        <option value="">Package Type</option>
-        <option value="Skid">Skid</option>
-        <option value="Skids">Skids</option>
-        <option value="Skid and Box">Skid and Box</option>
-        <option value="Skid and Boxes">Skid and Boxes</option>
-        <option value="Skids and Box">Skids and Box</option>
-        <option value="Skids and Boxes">Skids and Boxes</option>
-        
-      </select>
-    </div>
+    <!-- ВСЕ, ЩО ДРУКУЄМО -->
+    <div id="printArea">
+      <header class="header">
+        <img src="svg/kel.svg" alt="KEL Logo" />
+        <div class="label-title colorful-text">Label Generator</div>
+        <img id="company-logo" src="" alt="Company Logo" />
+      </header>
 
       <div class="field">
-      <!-- <label for="contact-person"></label> -->
-      <input class="short" type="text" id="contact-person" placeholder="Total Weight" />
-    </div>
-</div>
-  
+        <input type="text" id="project-name" placeholder="Project Name:" />
+      </div>
 
-    <div class="field">
-      <label for="location">Location:</label>
-      <select id="location">
-        <option value="">Select location</option>
-        <option value="Warehouse">Warehouse</option>
-        <option value="Quonset">Quonset</option>
-        <option value="Outside">Outside</option>
-      </select>
+      <div class="field">
+        <input type="text" id="company" placeholder="Sold To:" />
+      </div>
+
+      <div class="field">
+        <input class="short" type="text" id="customer-po" placeholder="Customer PO:" />
+      </div>
+
+      <div class="field">
+        <input class="short" type="text" id="project-number" placeholder="Project ID:" />
+      </div>
+
+      <div class="field">
+        <input class="short" type="text" id="kel-po" placeholder="KEL PO#:" />
+      </div>
+
+      <div class="field">
+        <input class="short" type="text" id="contact-person" placeholder="Leader:" />
+      </div>
+
+      <div class="measuremens">
+  <div class="field">
+    <!-- Total Pieces -->
+    <input class="short" type="text" id="total-pieces" placeholder="Total Pieces:" />
+
+    <!-- Package Type -->
+    <select id="package-type">
+      <option value="">Package Type</option>
+      <option value="Skid">Skid</option>
+      <option value="Skids">Skids</option>
+      <option value="Skid and Box">Skid and Box</option>
+      <option value="Skid and Boxes">Skid and Boxes</option>
+      <option value="Skids and Box">Skids and Box</option>
+      <option value="Skids and Boxes">Skids and Boxes</option>
+    </select>
+
+    <!-- Dimensions -->
+    <div id="dimensionsContainer"></div>
+  </div>
+
+  <div class="field">
+    <input class="short" type="text" id="total-weight" placeholder="Total Weight" />
+  </div>
+</div>
+
+
+      <div class="field">
+        <label for="location" class="no-print">Location:</label>
+        <select id="location">
+          <option value="">Select location</option>
+          <option value="Warehouse">Warehouse</option>
+          <option value="Quonset">Quonset</option>
+          <option value="Outside">Outside</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="delivery-time-date" class="no-print">Delivery Date/Time:</label>
+        <input class="short" type="text" id="delivery-time-date" readonly />
+      </div>
+    </div><!-- /#printArea -->
+
+    <!-- Кнопки (не друкуємо) -->
+    <div class="button-group no-print">
+      <button class="generate">Generate Label</button>
+      <button class="print" id="printBtn">PRINT</button>
     </div>
 
-    <div class="field">
-      <label for="delivery-time-date">Delivery Date/Time:</label>
-      <input class="short" type="text" id="delivery-time-date" readonly />
-    </div>
-<div class="button-group">
-    <button class="generate">Generate Label</button>
-    <button class="print" >PRINT</button>
-</div>
-    
+  </div>
 
   <script src="scripts/main.js"></script>
 </body>
