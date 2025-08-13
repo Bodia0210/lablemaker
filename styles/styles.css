@@ -110,8 +110,18 @@ select {
   font-size: 16px;
 }
 
+
+
 .measuremens {
   display: flex;
+}
+
+.weight-field {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+align-items: baseline;
+  width: 250px;
 }
 
 /* Кнопка */
@@ -214,7 +224,10 @@ select {
 max-width: 200px;
 max-height: 80px;
 object-fit: contain;
+}
 
+#total-pieces::placeholder {
+  font-size: 13px;
 }
 
 @media (max-width: 600px) {
@@ -240,7 +253,21 @@ object-fit: contain;
   /* показуємо тільки лейбл */
   body * { visibility: hidden !important; }
   #printArea, #printArea * { visibility: visible !important; }
-  #printArea { position: absolute !important; top: 0; left: 0; width: 100%; }
+  #printArea {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    /* --- Центрування тексту --- */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;      /* по горизонталі */
+    justify-content: center;  /* по вертикалі */
+    min-height: 100vh;        /* щоб центр був по всій висоті */
+    text-align: center;       /* багаторядковий текст по центру */
+  }
 
   /* поля виглядають як текст */
   input, select, textarea {
@@ -257,4 +284,5 @@ object-fit: contain;
   /* лейбли форм, якщо не потрібні в друці */
   .field > label { display: none !important; }
 }
+
 
