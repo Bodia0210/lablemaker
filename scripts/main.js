@@ -6,6 +6,7 @@ const logoMap = {
   "driSteem": "svg/dristeem.svg",
   "AQC": "svg/aqc.svg",
   "Daikin": "svg/daikin.svg",
+  "Direct Coil": "svg/directcoil.jpg",
   "Ecogreen": "svg/ecogreen.svg",
   "HVAC Solution": "svg/hvac.svg",
   "IEC": "svg/iec.svg",
