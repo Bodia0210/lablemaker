@@ -1,4 +1,4 @@
-// КАРТА ЛОГОТИПІВ (ключі = value у <select>)
+// ------- Логотипи постачальників -------
 const logoMap = {
   "TACO": "svg/taco.svg",
   "Modine": "svg/modine.svg",
@@ -22,10 +22,9 @@ const logoMap = {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-  // логотип постачальника
+  // --- логотип постачальника ---
   const companySelect = document.getElementById("companySelect");
   const logoImg = document.getElementById("company-logo");
-
   const updateLogo = () => {
     const key = companySelect?.value || "";
     logoImg.src = logoMap[key] || "";
@@ -34,17 +33,16 @@ window.addEventListener("DOMContentLoaded", () => {
   companySelect?.addEventListener("change", updateLogo);
   updateLogo();
 
-  // дата/час (формат як приклад, підженеш під свій)
+  // --- дата/час ---
   const now = new Date();
   const pad = n => n.toString().padStart(2, "0");
   const formatted = `${pad(now.getHours())}${pad(now.getMinutes())} ${pad(now.getMonth()+1)}/${pad(now.getDate())}/${now.getFullYear()}`;
   const dt = document.getElementById("delivery-time-date");
   if (dt) dt.value = formatted;
 
-  // автогенерація полів Dimensions
+  // --- автогенерація Dimensions за Quantity ---
   const totalPiecesInput = document.getElementById("total-pieces");
   const dimensionsContainer = document.getElementById("dimensionsContainer");
-
   totalPiecesInput?.addEventListener("input", () => {
     const count = parseInt(totalPiecesInput.value, 10);
     dimensionsContainer.innerHTML = "";
@@ -52,19 +50,79 @@ window.addEventListener("DOMContentLoaded", () => {
       for (let i = 1; i <= count; i++) {
         const wrap = document.createElement("div");
         wrap.className = "field";
-        const label = document.createElement("label");
-        label.textContent = `Dimensions ${i}:`;
         const input = document.createElement("input");
         input.type = "text";
         input.name = `dimension${i}`;
         input.placeholder = `WxLxH ${i}`;
         input.className = "short";
-        wrap.append(label, input);
+        wrap.appendChild(input);
         dimensionsContainer.appendChild(wrap);
       }
     }
   });
 
-  // ДРУК
+  // --- Project Name -> друкований блок із переносом ---
+  (function () {
+    const src = document.getElementById('project-name');
+    const out = document.getElementById('project-name-print');
+    if (!src || !out) return;
+    const sync = () => { out.textContent = src.value || src.placeholder || ''; };
+    src.addEventListener('input', sync);
+    window.addEventListener('beforeprint', sync);
+    sync();
+  })();
+
+  // --- Package Type -> друк без «галочки» ---
+  (function () {
+    const sel = document.getElementById('package-type');
+    const out = document.getElementById('package-type-print');
+    if (!sel || !out) return;
+    const text = () => sel.options[sel.selectedIndex]?.text || '';
+    const sync = () => { out.textContent = text(); };
+    sel.addEventListener('change', sync);
+    window.addEventListener('beforeprint', sync);
+    sync();
+  })();
+
+  // --- Location -> друк без «галочки» ---
+  (function () {
+    const sel = document.getElementById('location');
+    const out = document.getElementById('location-print');
+    if (!sel || !out) return;
+    const text = () => sel.options[sel.selectedIndex]?.text || '';
+    const sync = () => { out.textContent = text(); };
+    sel.addEventListener('change', sync);
+    window.addEventListener('beforeprint', sync);
+    sync();
+  })();
+
+  // --- кнопка друку ---
   document.getElementById("printBtn")?.addEventListener("click", () => window.print());
+});
+window.addEventListener("DOMContentLoaded", () => {
+  // ... залишаємо твій існуючий код як є
+
+  // 🔁 Додаємо print-версію для всіх input[type="text"]
+  const updatePrintFields = () => {
+    const inputs = document.querySelectorAll('input[type="text"]');
+
+    inputs.forEach(input => {
+      // Пропускаємо, якщо вже є print-клон
+      if (input.nextElementSibling?.classList?.contains('only-print')) return;
+
+      const div = document.createElement("div");
+      div.className = "only-print";
+      div.style.whiteSpace = "pre-wrap";
+      div.textContent = input.value || input.placeholder || '';
+      input.insertAdjacentElement('afterend', div);
+
+      // 🔁 Під час зміни значення — оновлюємо текст
+      input.addEventListener("input", () => {
+        div.textContent = input.value || input.placeholder || '';
+      });
+    });
+  };
+
+  updatePrintFields(); // одразу створюємо
+  window.addEventListener("beforeprint", updatePrintFields); // оновлюємо перед друком
 });

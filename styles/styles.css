@@ -1,288 +1,296 @@
-/* Загальні стилі */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  
-}
-
-html, body {
-  width: 100%;
-  min-height: 100vh;
-  font-family: "Roboto", sans-serif;
-}
-
-
+/* ===== Base (екран) ===== */
+* { box-sizing:border-box; margin:0; padding:0; }
+html, body { width:100%; min-height:100vh; font-family:"Roboto", sans-serif; }
 
 body {
-  background-color: #f4f4f4;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background:#f4f4f4;
+  padding:20px;
+  display:flex; align-items:center; justify-content:center;
 }
 
-/* Контейнер форми */
 .form-container {
-  width: 100%;
-  max-width: 1600px;
-  margin: auto;
-  background-color: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width:100%;
+  max-width:1200px;
+  background:#fff;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 0 20px rgba(0,0,0,0.1);
 }
 
-/* Шапка */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  width: 100%;
+.header { display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:20px; }
+.logo-left, .logo-right { max-width:150px; max-height:60px; object-fit:contain; }
+
+.field { width:100%; margin-bottom:12px; }
+
+input[type="text"], select {
+  width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:4px; font-size:16px;
 }
 
-.label-title {
-  font-size: 48px;
-  font-weight: bold;
-}
-
-.colorful-text {
-  background: linear-gradient(to right, rgb(6, 182, 6), rgb(8, 8, 225), red);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.no-print {
+  width: 170px;
 }
 
 
 
-.company-logo {
-  max-width: 150px;
-  height: auto;
-  object-fit: contain;
-}
-
-
-.header-flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Логотипи */
-.logo {
-  width: 120px;
-  height: auto;
-  object-fit: contain;
-}
-
-/* Заголовок */
-.title_text {
-  text-align: center;
-  flex: 1;
-}
-
-.title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #333;
-}
-
-/* Поля форми */
-.field {
-  width: 50%;
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 500;
-  color: #333;
-}
-
-input[type="text"],
-select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-
+#project-name { font-size:20px; font-weight:bold; }
 
 .measuremens {
-  display: flex;
+  display:flex; gap:16px; flex-wrap:wrap; justify-content:center; align-items:flex-end;
 }
-
-.weight-field {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-align-items: baseline;
-  width: 250px;
+.inline-row {
+  display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; width:auto; margin:0;
 }
-
-/* Кнопка */
-
-
-button,
-input[type="submit"] {
-  width: 80px;
-  height: 80px;
-  padding: 0;
-  border-radius: 50%;
-  background-color: #e0d5d9;
-  color: rgb(10, 10, 11);
-  font-size: 14px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-
-button:hover,
-input[type="submit"]:hover {
-  background-color: #b30012;
-}
-
-.button-group {
-  display: flex;
-  gap: 10px; /* Відступ між кнопками */
-  margin-top: 20px;
-}
-
-button.generate {
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  box-shadow: 0 4px 12px rgba(0, 114, 255, 0.4);
-  color: white;
-  font-size: 14px;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-button.generate:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 114, 255, 0.5);
-}
-
-
-button.print {
-  background-color: #333;
-  color: #fff;
-  width: 80px;
-  height: 80px;
-  border-radius: 20%;
-  font-size: 12px;
-  font-weight: bold;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  transition: background-color 0.3s;
-}
-
-button.print:hover {
-  background-color: #555;
-}
-
-
-input.short {
-    width: 45%;
-}
-
-select {
-  width: 23%;
-}
-
-@media (max-width: 600px) {
-  input.short {
-    width: 100%;
-  }
-}
-
-/* ставить рядки dimentions в ряд по 5 штук */
+.weight-field { display:flex; align-items:flex-end; width:auto; margin:0; }
 
 #dimensionsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px; /* відступ між полями */
-  margin-top: 10px;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:8px 12px; margin-top:6px;
 }
 
-#dimensionsContainer .field {
-  flex: 1 1 calc(20% - 10px); /* 100% / 5 = 20% */
-  min-width: 150px; /* щоб не злипались */
-}
+.only-print { display:none; }
 
-#company-logo {
-max-width: 200px;
-max-height: 80px;
-object-fit: contain;
-}
+.button-group { display:flex; gap:10px; margin-top:20px; }
+button { padding:10px 18px; border:none; border-radius:16px; cursor:pointer; }
+button.generate { background:#0072ff; color:#fff; }
+button.print { background:#333; color:#fff; }
 
-#total-pieces::placeholder {
-  font-size: 13px;
-}
+/* ===== PRINT ===== */
+@page { margin:8mm 10mm; }  /* компактні поля: допомагає вмістити на 1 сторінку */
 
-@media (max-width: 600px) {
-  #dimensionsContainer .field {
-    flex: 1 1 100%;
-  }
-}
-
-@media (max-width: 600px) {
-  .field {
-    width: 100%;
-  }
-}
-
-/* Print */
-/* ...твої існуючі стилі... */
-
-/* ДРУК */
 @media print {
-  /* не друкуємо службові елементи */
-  .no-print { display: none !important; }
+  .no-print {
+    display: none !important;
+  }
 
-  /* показуємо тільки лейбл */
-  body * { visibility: hidden !important; }
-  #printArea, #printArea * { visibility: visible !important; }
+  body * {
+    visibility: hidden !important;
+  }
+
+  #printArea,
+  #printArea * {
+    visibility: visible !important;
+  }
+
+  html, body, #printArea, .form-container, .field, input, select, textarea {
+    background: #fff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 15px;
+    font-family: "Times New Roman", serif;
+  }
+
   #printArea {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    width: 100%;
-
-    /* --- Центрування тексту --- */
+    position: relative !important;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;      /* по горизонталі */
-    justify-content: center;  /* по вертикалі */
-    min-height: 100vh;        /* щоб центр був по всій висоті */
-    text-align: center;       /* багаторядковий текст по центру */
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 4px;
+    transform-origin: top center;
   }
 
-  /* поля виглядають як текст */
+  header.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 4px 0 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .logo-left,
+  .logo-right {
+    max-height: 48px;
+    max-width: 140px;
+  }
+
   input, select, textarea {
     border: none !important;
-    background: transparent !important;
+    background: #fff !important;
     box-shadow: none !important;
     outline: none !important;
+    color: #000 !important;
+    font-size: 16px !important;
     padding: 0 !important;
-    -webkit-appearance: none !important;
+    margin: 0 !important;
+    width: auto !important;
+    text-align: center !important;
     appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
   }
-  select::-ms-expand { display: none !important; }
 
-  /* лейбли форм, якщо не потрібні в друці */
-  .field > label { display: none !important; }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  select::-ms-expand {
+    display: none !important;
+  }
+
+  .field {
+    width: 100% !important;
+    margin: 2mm 0 1.5mm 0 !important;
+    padding: 0 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .field > label {
+    display: none !important;
+  }
+
+  #project-name {
+    display: none !important;
+  }
+
+  #project-name-print {
+    display: block !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.2;
+    max-width: 92%;
+    margin: 3mm auto 2mm auto;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .measuremens {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 14px;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 2mm !important;
+  }
+
+  .measuremens .field,
+  .inline-row,
+  .weight-field {
+    width: auto !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 14px;
+    align-items: flex-end;
+  }
+
+  .measuremens input.short {
+    width: auto !important;
+    min-width: 84px;
+  }
+
+  #package-type {
+    display: none !important;
+  }
+
+  #package-type-print {
+    display: inline !important;
+    font-size: 15px !important;
+  }
+
+  #dimensionsContainer {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    width: 100%;
+    margin-top: 3mm !important;
+    break-before: avoid;
+    break-inside: avoid;
+  }
+
+  #dimensionsContainer .field {
+    flex: 0 0 auto;
+    min-width: 88px;
+    width: auto !important;
+    margin: 0 !important;
+  }
+
+ .bottom-section {
+  /* ВИРІШЕННЯ: не приклеювати вниз */
+  margin-top: 2mm !important;
+
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 3mm;
+  width: 100%;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
+  #location {
+    display: none !important;
+  }
 
+  #location-print {
+    display: inline !important;
+    font-size: 14px !important;
+  }
+
+  .bottom-section input {
+    font-size: 14px !important;
+  }
+}
+  @media print {
+  input, select, textarea {
+    background: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    color: #000 !important;
+    font-family: "Times New Roman", serif !important;
+    font-size: 16px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    text-align: center !important;
+
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+
+    filter: none !important;          /* 💥 Важливо! */
+    -webkit-filter: none !important;
+  }
+
+  input:focus, select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+@media print {
+  input[type="text"] {
+    display: none !important;
+  }
+
+  .only-print {
+    display: block !important;
+    color: #000 !important;
+    background: none !important;
+    font-family: "Times New Roman", serif !important;
+    font-size: 16px !important;
+    padding: 0 !important;
+    margin: 0 0 6px 0 !important;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap !important;
+  }
+}
