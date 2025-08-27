@@ -18,6 +18,7 @@ const logoMap = {
   "RGF": "svg/rgf.svg",
   "Senior Flexonics": "svg/seniorflexonics.svg",
   "ClimateCraft": "svg/climacraft.svg",
+  "WEG": "svg/weg.svg",
   "ClimaCool": "svg/climacool.svg"
 };
 
