@@ -1,6 +1,7 @@
 // ------- Логотипи постачальників -------
 const logoMap = {
   "TACO": "svg/taco.svg",
+  "TASK": "svg/taskcontrols.png",
   "Modine": "svg/modine.svg",
   "SpiraxSarco": "svg/spiraxsarco.svg",
   "driSteem": "svg/dristeem.svg",
@@ -127,3 +128,116 @@ window.addEventListener("DOMContentLoaded", () => {
   updatePrintFields(); // одразу створюємо
   window.addEventListener("beforeprint", updatePrintFields); // оновлюємо перед друком
 });
+
+// ===== AUTO RESIZE FONT for PRINT version =====
+(function () {
+  const input = document.getElementById('project-name');
+  const printOut = document.getElementById('project-name-print');
+
+  if (!input || !printOut) return;
+
+  const MIN = 18;  // мінімальний розмір шрифту
+  const MAX = 72;  // максимальний розмір шрифту
+
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  function getFont(size) {
+    return `700 ${size}px "Times New Roman", serif`;
+  }
+
+  function measure(text, size) {
+    ctx.font = getFont(size);
+    return ctx.measureText(text).width;
+  }
+
+  function fitSize(text, containerWidth, min=MIN, max=MAX) {
+    if (!text) return min;
+    let lo = min, hi = max, best = min;
+    for (let i = 0; i < 20; i++) {
+      const mid = Math.floor((lo + hi) / 2);
+      if (measure(text, mid) <= containerWidth) {
+        best = mid; lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+    return best;
+  }
+
+  function update() {
+    const text = input.value || input.placeholder || '';
+    printOut.textContent = text;
+
+    // доступна ширина друкованого контейнера
+    const w = printOut.clientWidth || 600;
+    const size = fitSize(text, w);
+
+    // задаємо змінну для CSS
+    printOut.style.setProperty('--print-size', size + 'px');
+  }
+
+  // оновлюємо під час введення та перед друком
+  input.addEventListener('input', update);
+  window.addEventListener('beforeprint', update);
+
+  update();
+})();
+
+// ===== AUTO RESIZE FONT for PRINT only =====
+(function () {
+  const input = document.getElementById('project-name');
+  const printOut = document.getElementById('project-name-print');
+  if (!input || !printOut) return;
+
+  const MIN = 18;   // мінімальний кегль на друк
+  const MAX = 72;   // максимальний кегль на друк
+
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  function measure(text, size) {
+    // на друці використовується Times New Roman (див. твої правила @media print)
+    ctx.font = `700 ${size}px "Times New Roman", serif`;
+    return ctx.measureText(text).width;
+  }
+
+  function fitSize(text, width, min = MIN, max = MAX) {
+    if (!text) return min;
+    let lo = min, hi = max, best = min;
+    for (let i = 0; i < 20; i++) {
+      const mid = (lo + hi) >> 1;
+      if (measure(text, mid) <= width) { best = mid; lo = mid + 1; }
+      else { hi = mid - 1; }
+    }
+    return best;
+  }
+
+  function update() {
+    const text = input.value || input.placeholder || '';
+    printOut.textContent = text;
+
+    // ширина береться з батька (у друці printOut видимий і має layout)
+    const container = printOut.parentElement || printOut;
+    const W = (container.clientWidth || 600) * 0.92; // врахуємо max-width:92%
+    const size = fitSize(text, W);
+
+    // передаємо кегль у CSS
+    printOut.style.setProperty('--print-size', size + 'px');
+  }
+
+  // Обновлюємо при вводі та перед друком
+  input.addEventListener('input', update);
+
+  // Chrome/Edge: спрацьовує при відкритті діалогу друку
+  window.addEventListener('beforeprint', update);
+
+  // Safari/інші: підстрахуємось через matchMedia
+  const mm = window.matchMedia('print');
+  if (mm && typeof mm.addEventListener === 'function') {
+    mm.addEventListener('change', e => { if (e.matches) update(); });
+  }
+
+  update();
+})();
+ 
