@@ -294,3 +294,53 @@ button.print { background:#333; color:#fff; }
     white-space: pre-wrap !important;
   }
 }
+
+/* --- FIX: друк без 2-ї сторінки --- */
+@media print {
+  /* 1) Повне скидання висот/відступів кореня */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;           /* скидаємо 100vh */
+    overflow: visible !important;
+  }
+
+  /* 2) Головна друк-область не повинна мати 100vh */
+  #printArea {
+    min-height: auto !important;        /* було 100vh */
+    height: auto !important;
+    /* враховуємо поля @page: 297mm - (8mm+8mm) = 281mm */
+    max-height: 281mm !important;       /* не виходимо за сторінку */
+    overflow: hidden !important;        /* все зайве — обрізати */
+    margin: 0 !important;
+    padding: 0 !important;
+
+    page-break-before: avoid;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* 3) Прибрати вплив візуальних ефектів, що інколи додають "хвіст" */
+  * {
+    box-shadow: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* 4) На випадок, якщо логотипи розтягують висоту рядка */
+  .logo-left, .logo-right {
+    max-height: 48px !important;
+    max-width: 140px !important;
+  }
+
+  /* 5) Заборонити розриви всередині ключових блоків */
+  header.header,
+  .field,
+  #dimensionsContainer,
+  .bottom-section {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+
