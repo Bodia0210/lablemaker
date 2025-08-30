@@ -36,5 +36,4 @@ Developed as an internal tool for **Kehoe Equipment** and related manufacturers 
    git clone https://github.com/your-username/lablemaker.git
 
 
-                                        Українською
 
