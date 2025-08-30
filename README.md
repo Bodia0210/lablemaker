@@ -9,8 +9,8 @@ Developed as an internal tool for **Kehoe Equipment** and related manufacturers 
 - Select a company from the dropdown list (the logo is automatically loaded).  
 ![Company Menu](image.png)
 - Automatic placement of the Kehoe logo on the left and the manufacturer’s logo on the right.  
-- Choose the packaging type (Skid, Box, Skids and Boxes, etc.) with corresponding icons.  
-- Dynamic addition of **Dimensions** fields depending on the number of **Total Pieces**.  
+- Choose the packaging type (Skid, Box, Skids and Boxes, etc.) ![Choose the packaging type](image-1.png) with corresponding icons.  
+- Dynamic addition of **Dimensions** fields depending on the number of **Total Pieces**.  ![Total Pieces - Dimensions ](image-2.png) 
 - Buttons:  
   - **Generate Label** — creates a preview of the label.  
   - **Print** — opens the standard print dialog (printer-friendly layout).  
