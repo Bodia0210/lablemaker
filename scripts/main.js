@@ -10,6 +10,7 @@ const logoMap = {
   "Direct Coil": "svg/directcoil.jpg",
   "Ecogreen": "svg/ecogreen.svg",
   "HVAC Solution": "svg/hvac.svg",
+  "HSL": "svg/hsl.png",
   "IEC": "svg/iec.svg",
   "Mafna": "svg/mafna.svg",
   "Nova Flex": "svg/novaflex.svg",
