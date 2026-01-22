@@ -1,5 +1,6 @@
 // ------- Логотипи постачальників -------
 const logoMap = {
+  "ALGGIN": "svg/Algginlogo1.png",
   "TACO": "svg/taco.svg",
   "TASK": "svg/taskcontrols.png",
   "Modine": "svg/modine.svg",
