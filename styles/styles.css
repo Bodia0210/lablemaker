@@ -148,7 +148,7 @@ button:disabled { opacity: .65; cursor: wait; }
   .label-header { margin-bottom: 6mm; }
   #project-name-print { font-size: 36pt; margin-bottom: 6mm; }
   .label-details { font-size: 18pt; }
-  .label-row { grid-template-columns: 45mm minmax(0, 1fr); gap: 4mm; margin: 3mm 0; }
+  .label-row { display: block; margin: 3mm 0; text-align: center; }
   .dimension-values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .label-header, #project-name-print, .label-row, .shipment-summary, .dimension-item, .label-footer { break-inside: avoid; }
   .label-dimensions h2 { break-after: avoid; }

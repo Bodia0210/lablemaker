@@ -245,13 +245,14 @@ window.addEventListener("DOMContentLoaded", () => {
       ["customer-po", "Customer PO"],
       ["project-number", "Project ID"],
       ["kel-po", "KEL PO#"],
-      ["contact-person", "Project lead"]
+      ["contact-person", "Project Leader"]
     ].forEach(([id, caption]) => {
       const value = byId(id).value.trim();
       if (!value) return;
       const row = document.createElement("div");
       row.className = "label-row";
       const term = document.createElement("dt");
+      term.className = "no-print";
       term.textContent = `${caption}:`;
       const description = document.createElement("dd");
       description.textContent = value;
