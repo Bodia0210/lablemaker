@@ -2,87 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Label Generator</title>
+  <meta name="description" content="Create and print shipping and warehouse labels for Kehoe Equipment." />
+  <title>KEL Label Maker</title>
   <link rel="stylesheet" href="styles/styles.css" />
+  <script src="scripts/main.js" defer></script>
 </head>
 <body>
-  <div class="form-container">
-
-    <!-- Керування (не друкуємо) -->
-    <div class="field no-print">
-      <label for="companySelect">Product of:</label>
-      <select id="companySelect">
-        <option value="">Select company</option>
-        <option value="ALGGIN">ALGGIN</option>
-        <option value="AQC">AQC</option>
-        <option value="ClimaCool">ClimaCool</option>
-        <option value="ClimateCraft">ClimateCraft</option>
-        <option value="Daikin">Daikin</option>
-        <option value="Direct Coil">Direct Coil</option>
-        <option value="driSteem">driSteem</option>
-        <option value="Ecogreen">Ecogreen</option>
-        <option value="HSL">HSL</option>
-        <option value="HVAC Solution">HVAC Solution</option>
-        <option value="IEC">IEC</option>
-        <option value="Mafna">Mafna</option>
-        <option value="Modine">Modine</option>
-        <option value="Nova Flex">Nova Flex</option>
-        <option value="Oxygen 8">Oxygen 8</option>
-        <option value="PB">PB</option>
-        <option value="Pool Pac">Pool Pac</option>
-        <option value="RGF">RGF</option>
-        <option value="Senior Flexonics">Senior Flexonics</option>
-        <option value="SpiraxSarco">SpiraxSarco</option>
-        <option value="TACO">TACO</option>
-        <option value="TASK">TASK Controls INC</option>
-        <option value="WEG">WEG</option>
-      </select>
-    </div>
-
-    <!-- ВСЕ, ЩО ДРУКУЄМО -->
-    <div id="printArea">
-
-      <header class="header">
-        <img src="svg/kel.svg" alt="KEL Logo" class="logo-left" />
-        <img id="company-logo" src="" alt="Company Logo" class="logo-right" />
-      </header>
-
-      <!-- Project Name -->
-      <div class="field">
-        <!-- інпут для екрану -->
-        <input type="text" id="project-name" placeholder="Project Name:" />
-        <!-- дублікат для друку (вміє переносити рядки) -->
-        <div id="project-name-print" class="only-print"></div>
+  <main class="form-container">
+    <header class="app-heading no-print">
+      <img src="svg/kel.svg" alt="Kehoe Equipment Ltd." class="app-logo" />
+      <div>
+        <h1>Label Maker</h1>
+        <p>Shipping &amp; warehouse labels</p>
       </div>
-        
-      <div class="field">
-        <input type="text" id="company" placeholder="Sold To:" />
+    </header>
+
+    <form id="labelForm" class="no-print">
+      <div class="field manufacturer-field">
+        <label for="companySelect">Product of</label>
+        <select id="companySelect">
+          <option value="">Select company (optional)</option>
+          <option value="ALGGIN">ALGGIN</option>
+          <option value="AQC">AQC</option>
+          <option value="ClimaCool">ClimaCool</option>
+          <option value="ClimateCraft">ClimateCraft</option>
+          <option value="Daikin">Daikin</option>
+          <option value="Direct Coil">Direct Coil</option>
+          <option value="driSteem">driSteem</option>
+          <option value="Ecogreen">Ecogreen</option>
+          <option value="HSL">HSL</option>
+          <option value="HVAC Solution">HVAC Solution</option>
+          <option value="IEC">IEC</option>
+          <option value="Mafna">Mafna</option>
+          <option value="Modine">Modine</option>
+          <option value="Nova Flex">Nova Flex</option>
+          <option value="Oxygen 8">Oxygen 8</option>
+          <option value="PB">PB</option>
+          <option value="Pool Pac">Pool Pac</option>
+          <option value="RGF">RGF</option>
+          <option value="Senior Flexonics">Senior Flexonics</option>
+          <option value="SpiraxSarco">SpiraxSarco</option>
+          <option value="TACO">TACO</option>
+          <option value="TASK">TASK Controls INC</option>
+          <option value="WEG">WEG</option>
+        </select>
       </div>
 
       <div class="field">
-        <input class="short" type="text" id="customer-po" placeholder="Customer PO:" />
+        <label for="project-name">Project name</label>
+        <input type="text" id="project-name" placeholder="Project name" />
       </div>
-
       <div class="field">
-        <input class="short" type="text" id="project-number" placeholder="Project ID:" />
+        <label for="company">Sold to</label>
+        <input type="text" id="company" placeholder="Customer / company" />
+      </div>
+      <div class="field-grid">
+        <div class="field">
+          <label for="customer-po">Customer PO</label>
+          <input type="text" id="customer-po" />
+        </div>
+        <div class="field">
+          <label for="project-number">Project ID</label>
+          <input type="text" id="project-number" />
+        </div>
+        <div class="field">
+          <label for="kel-po">KEL PO#</label>
+          <input type="text" id="kel-po" />
+        </div>
+        <div class="field">
+          <label for="contact-person">Project lead</label>
+          <input type="text" id="contact-person" />
+        </div>
       </div>
 
-      <div class="field">
-        <input class="short" type="text" id="kel-po" placeholder="KEL PO#:" />
-      </div>
-
-      <div class="field">
-        <input class="short" type="text" id="contact-person" placeholder="Leader:" />
-      </div>
-
-      <!-- Рядок 1: Quantity + Package Type + Total Weight -->
-      <div class="measuremens">
-        <div class="field inline-row">
-          <input class="short total-pieces" type="text" id="total-pieces" placeholder="Quantity:" />
+      <div class="field-grid shipment-fields">
+        <div class="field">
+          <label for="total-pieces">Total pieces</label>
+          <input type="number" id="total-pieces" min="1" max="100" step="1" inputmode="numeric" aria-describedby="pieces-help pieces-error" />
+          <small id="pieces-help">1–100 pieces. Leave blank if unknown.</small>
+          <span id="pieces-error" class="field-error" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="package-type">Package type</label>
           <select id="package-type">
-            <option value="">Package Type</option>
+            <option value="">Select package type</option>
             <option value="Skid">Skid</option>
             <option value="Skids">Skids</option>
             <option value="Box">Box</option>
@@ -92,48 +96,65 @@
             <option value="Skids and Box">Skids and Box</option>
             <option value="Skids and Boxes">Skids and Boxes</option>
           </select>
-          <!-- дзеркало для друку -->
-          <span id="package-type-print" class="only-print"></span>
         </div>
-
-        <div class="field weight-field">
-          <input class="short" type="text" id="total-weight" placeholder="Total Weight Lbs" />
+        <div class="field">
+          <label for="total-weight">Total weight (lbs)</label>
+          <input type="number" id="total-weight" min="0" step="any" inputmode="decimal" />
         </div>
       </div>
 
-      <!-- Рядок 2: Dimensions — одразу під першим рядом -->
-      <div id="dimensionsContainer"></div>
+      <fieldset id="dimensionsSection" hidden>
+        <legend>Dimensions — W × L × H (inches)</legend>
+        <div id="dimensionsContainer" class="field-grid"></div>
+      </fieldset>
 
-      <!-- Футер: завжди внизу сторінки -->
-      <div class="bottom-section">
-        <div class="field location">
-          <label for="location" class="no-print">Location:</label>
+      <div class="field-grid">
+        <div class="field">
+          <label for="location">Location</label>
           <select id="location">
             <option value="">Select location</option>
             <option value="Warehouse">Warehouse</option>
             <option value="Quonset">Quonset</option>
             <option value="Outside">Outside</option>
           </select>
-          <!-- дзеркало для друку -->
-          <span id="location-print" class="only-print"></span>
         </div>
-
-        <div class="field time">
-          <label for="delivery-time-date" class="no-print">Delivery Date/Time:</label>
-          <input class="short" type="text" id="delivery-time-date" readonly />
+        <div class="field">
+          <label for="delivery-time-date">Delivery date / time</label>
+          <input type="text" id="delivery-time-date" readonly />
         </div>
       </div>
+    </form>
 
-    </div><!-- /#printArea -->
+    <section id="previewPanel" aria-labelledby="previewHeading" hidden>
+      <div class="preview-heading no-print">
+        <h2 id="previewHeading" tabindex="-1">Label preview</h2>
+        <p>Use Print / Save PDF to open your browser’s print dialog.</p>
+      </div>
+      <article id="printArea" aria-label="Generated label">
+        <header class="label-header">
+          <img src="svg/kel.svg" alt="Kehoe Equipment Ltd." class="logo-left" />
+          <img id="company-logo" alt="" class="logo-right" hidden />
+        </header>
+        <h1 id="project-name-print">Warehouse Label</h1>
+        <dl id="label-details" class="label-details"></dl>
+        <div id="shipment-summary" class="shipment-summary" hidden></div>
+        <section id="dimensions-print" class="label-dimensions" aria-labelledby="dimensions-heading" hidden>
+          <h2 id="dimensions-heading">Dimensions — W × L × H (inches)</h2>
+          <div id="dimension-values" class="dimension-values"></div>
+        </section>
+        <footer class="label-footer">
+          <p id="location-print" hidden></p>
+          <p id="delivery-time-print"></p>
+        </footer>
+      </article>
+    </section>
 
-    <!-- Кнопки (не друкуємо) -->
     <div class="button-group no-print">
-      <button class="generate" type="button">Generate Label</button>
-      <button class="print" id="printBtn" type="button">PRINT</button>
+      <button id="generateBtn" class="primary" type="submit" form="labelForm">Generate Label</button>
+      <button id="editBtn" class="secondary" type="button" hidden>Edit details</button>
+      <button id="printBtn" class="print" type="button">Print / Save PDF</button>
     </div>
-
-  </div>
-
-  <script src="scripts/main.js"></script>
+    <p id="status" class="status no-print" role="status"></p>
+  </main>
 </body>
 </html>

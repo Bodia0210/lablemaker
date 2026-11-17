@@ -1,5 +1,6 @@
-// ------- Логотипи постачальників -------
-const logoMap = {
+"use strict";
+
+const logoMap = Object.freeze({
   "ALGGIN": "svg/Algginlogo1.png",
   "TACO": "svg/taco.svg",
   "TASK": "svg/taskcontrols.png",
@@ -23,223 +24,202 @@ const logoMap = {
   "ClimateCraft": "svg/climacraft.svg",
   "WEG": "svg/weg.svg",
   "ClimaCool": "svg/climacool.svg"
-};
+});
 
 window.addEventListener("DOMContentLoaded", () => {
-  // --- логотип постачальника ---
-  const companySelect = document.getElementById("companySelect");
-  const logoImg = document.getElementById("company-logo");
-  const updateLogo = () => {
-    const key = companySelect?.value || "";
-    logoImg.src = logoMap[key] || "";
-    logoImg.alt = key ? `${key} Logo` : "Company Logo";
-  };
-  companySelect?.addEventListener("change", updateLogo);
-  updateLogo();
+  const byId = id => document.getElementById(id);
+  const form = byId("labelForm");
+  const quantityInput = byId("total-pieces");
+  const dimensionsContainer = byId("dimensionsContainer");
+  const previewPanel = byId("previewPanel");
+  const status = byId("status");
+  // Keep the actual inputs so reducing or temporarily clearing quantity never loses data.
+  const dimensionRows = [];
+  const maxPieces = Number(quantityInput.max);
 
-  // --- дата/час ---
   const now = new Date();
-  const pad = n => n.toString().padStart(2, "0");
-  const formatted = `${pad(now.getHours())}${pad(now.getMinutes())} ${pad(now.getMonth()+1)}/${pad(now.getDate())}/${now.getFullYear()}`;
-  const dt = document.getElementById("delivery-time-date");
-  if (dt) dt.value = formatted;
+  const pad = n => String(n).padStart(2, "0");
+  byId("delivery-time-date").value = `${pad(now.getHours())}${pad(now.getMinutes())} ${pad(now.getMonth() + 1)}/${pad(now.getDate())}/${now.getFullYear()}`;
 
-  // --- автогенерація Dimensions за Quantity ---
-  const totalPiecesInput = document.getElementById("total-pieces");
-  const dimensionsContainer = document.getElementById("dimensionsContainer");
-  totalPiecesInput?.addEventListener("input", () => {
-    const count = parseInt(totalPiecesInput.value, 10);
-    dimensionsContainer.innerHTML = "";
-    if (!isNaN(count) && count > 0) {
-      for (let i = 1; i <= count; i++) {
-        const wrap = document.createElement("div");
-        wrap.className = "field";
-        const input = document.createElement("input");
-        input.type = "text";
-        input.name = `dimension${i}`;
-        input.placeholder = `WxLxH ${i}`;
-        input.className = "short";
-        wrap.appendChild(input);
-        dimensionsContainer.appendChild(wrap);
-      }
+  function quantityState() {
+    const raw = quantityInput.value.trim();
+    if (!raw && !quantityInput.validity.badInput) return { count: 0, error: "" };
+    const count = Number(raw);
+    const valid = /^\d+$/.test(raw) && Number.isSafeInteger(count) && count >= 1 && count <= maxPieces;
+    return valid
+      ? { count, error: "" }
+      : { count: 0, error: `Enter a whole number from 1 to ${maxPieces}.` };
+  }
+
+  function syncDimensionRows() {
+    const { count, error } = quantityState();
+    quantityInput.setCustomValidity(error);
+    quantityInput.setAttribute("aria-invalid", String(Boolean(error)));
+    byId("pieces-error").textContent = error;
+    if (error) return;
+
+    while (dimensionRows.length < count) {
+      const number = dimensionRows.length + 1;
+      const row = document.createElement("div");
+      row.className = "field";
+      const label = document.createElement("label");
+      label.htmlFor = `dimension-${number}`;
+      label.textContent = `Piece ${number}`;
+      const input = document.createElement("input");
+      input.type = "text";
+      input.id = label.htmlFor;
+      input.name = `dimension${number}`;
+      input.placeholder = "e.g. 48 × 40 × 50";
+      row.append(label, input);
+      dimensionsContainer.append(row);
+      dimensionRows.push({ row, input });
+    }
+    dimensionRows.forEach(({ row }, index) => { row.hidden = index >= count; });
+    byId("dimensionsSection").hidden = count === 0;
+  }
+
+  function updateLogo() {
+    const company = byId("companySelect").value;
+    const src = logoMap[company];
+    const image = byId("company-logo");
+    image.hidden = !src;
+    image.alt = src ? `${company} logo` : "";
+    if (src) {
+      if (image.getAttribute("src") !== src) image.src = src;
+    } else {
+      image.removeAttribute("src");
+    }
+  }
+
+  function renderLabel() {
+    updateLogo();
+    byId("project-name-print").textContent = byId("project-name").value.trim() || "Warehouse Label";
+
+    const details = document.createDocumentFragment();
+    [
+      ["company", "Sold to"],
+      ["customer-po", "Customer PO"],
+      ["project-number", "Project ID"],
+      ["kel-po", "KEL PO#"],
+      ["contact-person", "Project lead"]
+    ].forEach(([id, caption]) => {
+      const value = byId(id).value.trim();
+      if (!value) return;
+      const row = document.createElement("div");
+      row.className = "label-row";
+      const term = document.createElement("dt");
+      term.textContent = `${caption}:`;
+      const description = document.createElement("dd");
+      description.textContent = value;
+      row.append(term, description);
+      details.append(row);
+    });
+    byId("label-details").replaceChildren(details);
+
+    const { count } = quantityState();
+    const packageType = byId("package-type").value;
+    const weight = byId("total-weight").value.trim();
+    const summary = byId("shipment-summary");
+    summary.replaceChildren();
+    const pieces = [count || "", packageType].filter(Boolean).join(" ");
+    if (pieces) {
+      const item = document.createElement("p");
+      item.textContent = count && !packageType ? `Total pieces: ${count}` : pieces;
+      summary.append(item);
+    }
+    if (weight) {
+      const item = document.createElement("p");
+      item.textContent = `Total weight: ${weight} lbs`;
+      summary.append(item);
+    }
+    summary.hidden = !summary.childElementCount;
+
+    const dimensions = document.createDocumentFragment();
+    dimensionRows.slice(0, count).forEach(({ input }, index) => {
+      const value = input.value.trim();
+      if (!value) return;
+      const item = document.createElement("p");
+      item.className = "dimension-item";
+      item.textContent = `Piece ${index + 1}: ${value}`;
+      dimensions.append(item);
+    });
+    byId("dimension-values").replaceChildren(dimensions);
+    byId("dimensions-print").hidden = !byId("dimension-values").childElementCount;
+
+    const location = byId("location").value;
+    byId("location-print").textContent = location ? `Location: ${location}` : "";
+    byId("location-print").hidden = !location;
+    byId("delivery-time-print").textContent = `Delivery: ${byId("delivery-time-date").value}`;
+  }
+
+  function validate() {
+    syncDimensionRows();
+    if (form.checkValidity()) return true;
+    // Reveal invalid controls even when the user was viewing the preview.
+    showEditor();
+    form.reportValidity();
+    status.textContent = "Check the highlighted field before generating or printing.";
+    return false;
+  }
+
+  function showPreview() {
+    renderLabel();
+    form.hidden = true;
+    previewPanel.hidden = false;
+    byId("generateBtn").hidden = true;
+    byId("editBtn").hidden = false;
+    byId("previewHeading").focus();
+  }
+
+  function showEditor() {
+    form.hidden = false;
+    previewPanel.hidden = true;
+    byId("generateBtn").hidden = false;
+    byId("editBtn").hidden = true;
+  }
+
+  form.addEventListener("input", event => {
+    if (event.target === quantityInput) syncDimensionRows();
+    renderLabel();
+    status.textContent = "";
+  });
+  form.addEventListener("change", renderLabel);
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    if (!validate()) return;
+    showPreview();
+    status.textContent = "Preview ready. Review the label, then print or save it as a PDF.";
+  });
+  byId("editBtn").addEventListener("click", () => {
+    showEditor();
+    byId("project-name").focus();
+    status.textContent = "";
+  });
+
+  byId("printBtn").addEventListener("click", async () => {
+    if (!validate()) return;
+    showPreview();
+    const button = byId("printBtn");
+    button.disabled = true;
+    try {
+      // Wait for the selected logo before opening the print dialog.
+      const images = [...byId("printArea").querySelectorAll("img")].filter(image => !image.hidden);
+      await Promise.all(images.map(image => image.decode()));
+      status.textContent = "Choose your printer or Save as PDF in the print dialog.";
+      window.print();
+    } catch {
+      status.textContent = "A logo could not load. Check your connection and try printing again.";
+    } finally {
+      button.disabled = false;
     }
   });
 
-  // --- Project Name -> друкований блок із переносом ---
-  (function () {
-    const src = document.getElementById('project-name');
-    const out = document.getElementById('project-name-print');
-    if (!src || !out) return;
-    const sync = () => { out.textContent = src.value || src.placeholder || ''; };
-    src.addEventListener('input', sync);
-    window.addEventListener('beforeprint', sync);
-    sync();
-  })();
+  // Ctrl/Cmd+P follows the same rendering path, including newly added dimensions.
+  window.addEventListener("beforeprint", () => {
+    syncDimensionRows();
+    renderLabel();
+  });
 
-  // --- Package Type -> друк без «галочки» ---
-  (function () {
-    const sel = document.getElementById('package-type');
-    const out = document.getElementById('package-type-print');
-    if (!sel || !out) return;
-    const text = () => sel.options[sel.selectedIndex]?.text || '';
-    const sync = () => { out.textContent = text(); };
-    sel.addEventListener('change', sync);
-    window.addEventListener('beforeprint', sync);
-    sync();
-  })();
-
-  // --- Location -> друк без «галочки» ---
-  (function () {
-    const sel = document.getElementById('location');
-    const out = document.getElementById('location-print');
-    if (!sel || !out) return;
-    const text = () => sel.options[sel.selectedIndex]?.text || '';
-    const sync = () => { out.textContent = text(); };
-    sel.addEventListener('change', sync);
-    window.addEventListener('beforeprint', sync);
-    sync();
-  })();
-
-  // --- кнопка друку ---
-  document.getElementById("printBtn")?.addEventListener("click", () => window.print());
+  syncDimensionRows();
+  renderLabel();
 });
-window.addEventListener("DOMContentLoaded", () => {
-  // ... залишаємо твій існуючий код як є
-
-  // 🔁 Додаємо print-версію для всіх input[type="text"]
-  const updatePrintFields = () => {
-    const inputs = document.querySelectorAll('input[type="text"]');
-
-    inputs.forEach(input => {
-      // Пропускаємо, якщо вже є print-клон
-      if (input.nextElementSibling?.classList?.contains('only-print')) return;
-
-      const div = document.createElement("div");
-      div.className = "only-print";
-      div.style.whiteSpace = "pre-wrap";
-      div.textContent = input.value || input.placeholder || '';
-      input.insertAdjacentElement('afterend', div);
-
-      // 🔁 Під час зміни значення — оновлюємо текст
-      input.addEventListener("input", () => {
-        div.textContent = input.value || input.placeholder || '';
-      });
-    });
-  };
-
-  updatePrintFields(); // одразу створюємо
-  window.addEventListener("beforeprint", updatePrintFields); // оновлюємо перед друком
-});
-
-// ===== AUTO RESIZE FONT for PRINT version =====
-(function () {
-  const input = document.getElementById('project-name');
-  const printOut = document.getElementById('project-name-print');
-
-  if (!input || !printOut) return;
-
-  const MIN = 18;  // мінімальний розмір шрифту
-  const MAX = 72;  // максимальний розмір шрифту
-
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-
-  function getFont(size) {
-    return `700 ${size}px "Times New Roman", serif`;
-  }
-
-  function measure(text, size) {
-    ctx.font = getFont(size);
-    return ctx.measureText(text).width;
-  }
-
-  function fitSize(text, containerWidth, min=MIN, max=MAX) {
-    if (!text) return min;
-    let lo = min, hi = max, best = min;
-    for (let i = 0; i < 20; i++) {
-      const mid = Math.floor((lo + hi) / 2);
-      if (measure(text, mid) <= containerWidth) {
-        best = mid; lo = mid + 1;
-      } else {
-        hi = mid - 1;
-      }
-    }
-    return best;
-  }
-
-  function update() {
-    const text = input.value || input.placeholder || '';
-    printOut.textContent = text;
-
-    // доступна ширина друкованого контейнера
-    const w = printOut.clientWidth || 600;
-    const size = fitSize(text, w);
-
-    // задаємо змінну для CSS
-    printOut.style.setProperty('--print-size', size + 'px');
-  }
-
-  // оновлюємо під час введення та перед друком
-  input.addEventListener('input', update);
-  window.addEventListener('beforeprint', update);
-
-  update();
-})();
-
-// ===== AUTO RESIZE FONT for PRINT only =====
-(function () {
-  const input = document.getElementById('project-name');
-  const printOut = document.getElementById('project-name-print');
-  if (!input || !printOut) return;
-
-  const MIN = 18;   // мінімальний кегль на друк
-  const MAX = 72;   // максимальний кегль на друк
-
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-
-  function measure(text, size) {
-    // на друці використовується Times New Roman (див. твої правила @media print)
-    ctx.font = `700 ${size}px "Times New Roman", serif`;
-    return ctx.measureText(text).width;
-  }
-
-  function fitSize(text, width, min = MIN, max = MAX) {
-    if (!text) return min;
-    let lo = min, hi = max, best = min;
-    for (let i = 0; i < 20; i++) {
-      const mid = (lo + hi) >> 1;
-      if (measure(text, mid) <= width) { best = mid; lo = mid + 1; }
-      else { hi = mid - 1; }
-    }
-    return best;
-  }
-
-  function update() {
-    const text = input.value || input.placeholder || '';
-    printOut.textContent = text;
-
-    // ширина береться з батька (у друці printOut видимий і має layout)
-    const container = printOut.parentElement || printOut;
-    const W = (container.clientWidth || 600) * 0.92; // врахуємо max-width:92%
-    const size = fitSize(text, W);
-
-    // передаємо кегль у CSS
-    printOut.style.setProperty('--print-size', size + 'px');
-  }
-
-  // Обновлюємо при вводі та перед друком
-  input.addEventListener('input', update);
-
-  // Chrome/Edge: спрацьовує при відкритті діалогу друку
-  window.addEventListener('beforeprint', update);
-
-  // Safari/інші: підстрахуємось через matchMedia
-  const mm = window.matchMedia('print');
-  if (mm && typeof mm.addEventListener === 'function') {
-    mm.addEventListener('change', e => { if (e.matches) update(); });
-  }
-
-  update();
-})();
- 
