@@ -1,417 +1,156 @@
-/* ===== Base (екран) ===== */
-* { box-sizing:border-box; margin:0; padding:0; }
-html, body { width:100%; min-height:100vh; font-family:"Roboto", sans-serif; }
-
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body {
-  background:#f4f4f4;
-  padding:20px;
-  display:flex; align-items:center; justify-content:center;
+  margin: 0;
+  padding: 28px 20px;
+  background: #f1f4f7;
+  color: #172b3a;
+  font-family: Arial, Helvetica, sans-serif;
 }
-
 .form-container {
-  width:100%;
-  max-width:1200px;
-  background:#fff;
-  padding:30px;
-  border-radius:8px;
-  box-shadow:0 0 20px rgba(0,0,0,0.1);
-}
-
-.header { display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:20px; }
-.logo-left, .logo-right { max-width:150px; max-height:60px; object-fit:contain; }
-
-.field { width:100%; margin-bottom:12px; }
-
-input[type="text"], select {
-  width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:4px; font-size:16px;
-}
-
-.no-print {
-  width: 170px;
-}
-
-
-
-#project-name { font-size:20px; font-weight:bold; }
-
-.measuremens {
-  display:flex; gap:16px; flex-wrap:wrap; justify-content:center; align-items:flex-end;
-}
-.inline-row {
-  display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; width:auto; margin:0;
-}
-.weight-field { display:flex; align-items:flex-end; width:auto; margin:0; }
-
-#dimensionsContainer {
-  display:flex; flex-wrap:wrap; justify-content:center; gap:8px 12px; margin-top:6px;
-}
-
-.only-print { display:none; }
-
-.button-group { display:flex; gap:10px; margin-top:20px; }
-button { padding:10px 18px; border:none; border-radius:16px; cursor:pointer; }
-button.generate { 
-   display: inline-block;
-  padding: 10px 20px;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  background-color: #0072FF;
-  border: 2px solid #000;
-  border-radius: 10px;
-  box-shadow: 5px 5px 0px #000;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.generate:hover {
-  background-color: #fff;
-  color: #0072FF;
-  border: 2px solid #0072FF;
-  box-shadow: 5px 5px 0px #0072FF;
-}
-
-.generate:active {
-  background-color: #fcf414;
-  box-shadow: none;
-  transform: translateY(4px);
-}
-
-button.print {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  background-color: #ff5252;
-  border: 2px solid #000;
-  border-radius: 10px;
-  box-shadow: 5px 5px 0px #000;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.print:hover {
-  background-color: #fff;
-  color: #ff5252;
-  border: 2px solid #ff5252;
-  box-shadow: 5px 5px 0px #ff5252;
-}
-
-.print:active {
-  background-color: #fcf414;
-  box-shadow: none;
-  transform: translateY(4px);
-}
-
-
-/* ===== PRINT ===== */
-@page { margin:8mm 10mm; }  /* компактні поля: допомагає вмістити на 1 сторінку */
-
-@media print {
-  .no-print {
-    display: none !important;
-  }
-
-  body * {
-    visibility: hidden !important;
-  }
-
-  #printArea,
-  #printArea * {
-    visibility: visible !important;
-  }
-
-  html, body, #printArea, .form-container, .field, input, select, textarea {
-    background: #fff !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-    font-size: 20 px;
-    font-family: "Times New Roman", serif;
-  }
-
-  #printArea {
-    position: relative !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    min-height: 100vh;
-    margin: 0 !important;
-    padding: 0 !important;
-    gap: 4px;
-    transform-origin: top center;
-  }
-
-  header.header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 4px 0 !important;
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  .logo-left,
-  .logo-right {
-    max-height: 48px;
-    max-width: 140px;
-  }
-
-  input, select, textarea {
-    border: none !important;
-    background: #fff !important;
-    box-shadow: none !important;
-    outline: none !important;
-    color: #000 !important;
-    font-size: 16px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    width: auto !important;
-    text-align: center !important;
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-  }
-
-  input:focus,
-  select:focus,
-  textarea:focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-
-  select::-ms-expand {
-    display: none !important;
-  }
-
-  .field {
-    width: 100% !important;
-    margin: 2mm 0 1.5mm 0 !important;
-    padding: 0 !important;
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  .field > label {
-    display: none !important;
-  }
-
-  #project-name {
-    display: none !important;
-  }
-
-#project-name-print {
-  display: block !important;
-  font-size: var(--print-size, 24px); /* керуємо з JS */
-  font-weight: 700 !important;
-  line-height: 1.2;
-  max-width: 92%;
-  margin: 3mm auto 2mm auto;
-  white-space: normal !important;
-  overflow-wrap: anywhere !important;
-  break-after: avoid;
-  page-break-after: avoid;
-}
-
-  .measuremens {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 14px;
-    justify-content: center;
-    align-items: flex-end;
-    width: 100%;
-    margin-top: 2mm !important;
-  }
-
-  .measuremens .field,
-  .inline-row,
-  .weight-field {
-    width: auto !important;
-    margin: 0 !important;
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 14px;
-    align-items: flex-end;
-  }
-
-  .measuremens input.short {
-    width: auto !important;
-    min-width: 84px;
-  }
-
-  #package-type {
-    display: none !important;
-  }
-
-  #package-type-print {
-    display: inline !important;
-    font-size: 15px !important;
-  }
-
-  #dimensionsContainer {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px 10px;
-    width: 100%;
-    margin-top: 3mm !important;
-    break-before: avoid;
-    break-inside: avoid;
-  }
-
-  #dimensionsContainer .field {
-    flex: 0 0 auto;
-    min-width: 88px;
-    width: auto !important;
-    margin: 0 !important;
-  }
-
- .bottom-section {
-  /* ВИРІШЕННЯ: не приклеювати вниз */
-  margin-top: 2mm !important;
-
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  gap: 3mm;
   width: 100%;
-  break-inside: avoid;
-  page-break-inside: avoid;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 28px;
+  border: 1px solid #dce3e9;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 24px #172b3a0d;
+}
+.app-heading { display: flex; align-items: center; gap: 24px; margin-bottom: 28px; }
+.app-logo { width: 160px; height: 58px; object-fit: contain; }
+.app-heading h1 { margin: 0 0 4px; font-size: 26px; }
+.app-heading p, .preview-heading p { margin: 0; color: #536474; font-size: 14px; }
+.field { min-width: 0; margin-bottom: 18px; }
+.field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; }
+.shipment-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.field-help { margin: 0 0 14px; color: #536474; font-size: 14px; line-height: 1.5; }
+.manufacturer-picker { margin-bottom: 24px; padding: 14px 16px; border: 1px solid #dce3e9; border-radius: 8px; }
+.manufacturer-picker summary { cursor: pointer; font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
+.manufacturer-picker summary span { margin-left: 10px; color: #536474; font-weight: 400; }
+.manufacturer-picker[open] summary { margin-bottom: 14px; }
+.manufacturer-fieldset { border: 0; margin: 0; padding: 0; }
+.manufacturer-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px 14px; max-height: 280px; overflow-y: auto; }
+label.manufacturer-option { display: flex; align-items: center; gap: 9px; min-height: 40px; margin: 0; padding: 6px; font-weight: 400; cursor: pointer; }
+input[type="checkbox"] { width: 18px; height: 18px; min-height: 0; flex: 0 0 18px; margin: 0; accent-color: #086cb2; }
+.manufacturer-option input:checked + span { font-weight: 700; }
+.package-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(90px, 1fr) auto; gap: 10px 14px; align-items: end; margin-bottom: 16px; }
+.package-row .field { margin-bottom: 0; }
+.package-row-error { grid-column: 1 / -1; margin: 0; }
+#addPackageBtn { margin-bottom: 18px; }
+#packaging-error:not(:empty) { margin: 0 0 18px; }
+label { display: block; margin-bottom: 7px; font-size: 14px; font-weight: 600; }
+input, select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #b9c6d0;
+  border-radius: 6px;
+  background: #fff;
+  color: #172b3a;
+  font: inherit;
+  font-size: 16px;
+}
+input[readonly] { background: #f4f6f8; }
+#project-name { font-size: 20px; font-weight: 700; }
+input:focus-visible, select:focus-visible, button:focus-visible {
+  outline: 3px solid #91c5ef;
+  outline-offset: 2px;
+}
+input[aria-invalid="true"] { border-color: #b42318; }
+small { display: block; margin-top: 6px; color: #536474; line-height: 1.4; }
+.field-error { display: block; margin-top: 6px; color: #b42318; font-size: 14px; }
+.field-error:empty { display: none; }
+fieldset { min-width: 0; margin: 0 0 22px; padding: 18px 18px 0; border: 1px solid #dce3e9; border-radius: 8px; }
+legend { padding: 0 6px; font-size: 14px; font-weight: 600; }
+.button-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+button {
+  min-height: 44px;
+  padding: 11px 20px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+button.primary { background: #086cb2; color: white; }
+button.primary:hover { background: #05538b; }
+button.print { background: #15734a; color: white; }
+button.print:hover { background: #105c3b; }
+button.secondary { background: #fff; border-color: #a7b7c3; color: #172b3a; }
+button.secondary:hover { background: #edf2f6; }
+button:disabled { opacity: .65; cursor: wait; }
+.status { min-height: 20px; margin: 14px 0 0; color: #36566b; font-size: 14px; line-height: 1.5; }
+.preview-heading { margin-bottom: 20px; }
+.preview-heading h2 { margin: 0 0 6px; font-size: 20px; }
+
+/* The preview and printed label share one rendered document. */
+#printArea {
+  max-width: 790px;
+  margin: 0 auto;
+  padding: 26px;
+  border: 1px solid #ccd6de;
+  background: #fff;
+  color: #000;
+  font-family: "Times New Roman", Times, serif;
+  overflow-wrap: anywhere;
+}
+.label-header { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 28px; }
+.logo-left { width: 160px; max-width: 43%; height: 60px; object-fit: contain; }
+.manufacturer-logos { display: flex; flex: 1; min-width: 0; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 12px 16px; }
+.logo-right { width: 120px; max-width: 100%; height: 50px; object-fit: contain; }
+#project-name-print { margin: 0 0 28px; text-align: center; font-size: 44px; line-height: 1.15; }
+.label-details { margin: 0; font-size: 23px; line-height: 1.35; }
+.label-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 14px; margin: 12px 0; }
+.label-row dt { font-weight: 700; }
+.label-row dd { min-width: 0; margin: 0; }
+.shipment-summary { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 32px; margin-top: 28px; font-size: 25px; font-weight: 700; text-align: center; }
+.shipment-summary p { margin: 0; }
+.shipment-summary .package-breakdown { flex-basis: 100%; }
+.label-dimensions { margin-top: 24px; }
+.label-dimensions h2 { margin: 0 0 12px; font-size: 18px; text-align: center; }
+.dimension-values { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 20px; }
+.dimension-item { margin: 0; font-size: 19px; line-height: 1.35; }
+.label-footer { margin-top: 30px; text-align: center; font-size: 17px; line-height: 1.5; }
+.label-footer p { margin: 4px 0; }
+
+@media screen and (max-width: 600px) {
+  body { padding: 12px; }
+  .form-container { padding: 18px; }
+  .app-heading { gap: 16px; }
+  .app-logo { width: 115px; }
+  .app-heading h1 { font-size: 22px; }
+  .field-grid, .shipment-fields { grid-template-columns: minmax(0, 1fr); }
+  .manufacturer-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .package-row { grid-template-columns: minmax(0, 1fr) 90px; }
+  .remove-package { grid-column: 1 / -1; justify-self: start; }
+  .label-header { flex-wrap: wrap; }
+  .manufacturer-logos { flex-basis: 100%; justify-content: center; }
+  #printArea { padding: 18px; }
+  #project-name-print { font-size: 32px; }
+  .label-details { font-size: 20px; }
+  .label-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .dimension-values { grid-template-columns: minmax(0, 1fr); }
 }
 
-  #location {
-    display: none !important;
-  }
-
-  #location-print {
-    display: inline !important;
-    font-size: 14px !important;
-  }
-
-  .bottom-section input {
-    font-size: 14px !important;
-  }
+@media screen and (max-width: 380px) {
+  .manufacturer-options { grid-template-columns: minmax(0, 1fr); }
 }
-  @media print {
-  input, select, textarea {
-    background: #fff !important;
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    color: #000 !important;
-    font-family: "Times New Roman", serif !important;
-    font-size: 16px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    width: auto !important;
-    text-align: center !important;
 
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-    appearance: none !important;
-
-    filter: none !important;          /* 💥 Важливо! */
-    -webkit-filter: none !important;
-  }
-
-  input:focus, select:focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-}
+@page { margin: 10mm; }
 @media print {
-  input[type="text"] {
-    display: none !important;
-  }
-
-  .only-print {
-    display: block !important;
-    color: #000 !important;
-    background: none !important;
-    font-family: "Times New Roman", serif !important;
-    
-    padding: 0 !important;
-    margin: 0 0 6px 0 !important;
-    text-align: center;
-    word-wrap: break-word;
-    white-space: pre-wrap !important;
-  }
+  .no-print { display: none !important; }
+  #previewPanel { display: block !important; }
+  html, body { margin: 0; padding: 0; background: #fff; color: #000; }
+  .form-container { max-width: none; width: auto; margin: 0; padding: 0; border: 0; border-radius: 0; box-shadow: none; }
+  #printArea { max-width: none; margin: 0; padding: 0; border: 0; }
+  .label-header { margin-bottom: 6mm; }
+  #project-name-print { font-size: 36pt; margin-bottom: 6mm; }
+  .label-details { font-size: 18pt; }
+  .label-row { display: block; margin: 3mm 0; text-align: center; }
+  .dimension-values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .label-header, #project-name-print, .label-row, .shipment-summary, .dimension-item, .label-footer { break-inside: avoid; }
+  .label-dimensions h2 { break-after: avoid; }
+  /* No fixed page height or hidden overflow: long labels continue onto another page. */
 }
-
-/* --- FIX: друк без 2-ї сторінки --- */
-@media print {
-  /* 1) Повне скидання висот/відступів кореня */
-  html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-    height: auto !important;
-    min-height: 0 !important;           /* скидаємо 100vh */
-    overflow: visible !important;
-  }
-
-  @media print {
-  #project-name-print {
-    font-size: var(--print-size, 24px) !important; /* ← керуємо з JS */
-    font-weight: 700 !important;
-    line-height: 1.2;
-    max-width: 92%;
-    margin: 3mm auto 2mm auto;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-    break-after: avoid;
-    page-break-after: avoid;
-  }
-}
-
-
-  /* 2) Головна друк-область не повинна мати 100vh */
-  #printArea {
-    min-height: auto !important;        /* було 100vh */
-    height: auto !important;
-    /* враховуємо поля @page: 297mm - (8mm+8mm) = 281mm */
-    max-height: 281mm !important;       /* не виходимо за сторінку */
-    overflow: hidden !important;        /* все зайве — обрізати */
-    margin: 0 !important;
-    padding: 0 !important;
-
-    page-break-before: avoid;
-    page-break-after: avoid;
-    page-break-inside: avoid;
-  }
-
-  /* 3) Прибрати вплив візуальних ефектів, що інколи додають "хвіст" */
-  * {
-    box-shadow: none !important;
-    transform: none !important;
-    filter: none !important;
-  }
-
-  /* 4) На випадок, якщо логотипи розтягують висоту рядка */
-  .logo-left, .logo-right {
-    max-height: 48px !important;
-    max-width: 140px !important;
-  }
-
-  /* 5) Заборонити розриви всередині ключових блоків */
-  header.header,
-  .field,
-  #dimensionsContainer,
-  .bottom-section {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-  }
-}
-
